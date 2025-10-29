@@ -74,7 +74,7 @@ app.post('/api/pix/create', async (req, res) => {
 });
 
 // ===================== WEBHOOK EFI =====================
-app.post("/webhooks/efi/pix", async (req, res) => {
+app.post("/webhooks/efi/pix/pix", async (req, res) => {
   try {
     const pixNotifications = req.body.pix;
     console.log("Webhook recebido:", pixNotifications);
@@ -121,5 +121,5 @@ app.listen(port, async () => {
     console.error("❌ Erro ao cadastrar webhook:", err.response?.data || err);
   }
 
-  
+
 });
