@@ -71,7 +71,7 @@ app.post('/api/pix/create', async (req, res) => {
 });
 
 // ===================== WEBHOOK EFI =====================
-app.post("/webhook/efi/pix/pix", async (req, res) => {
+app.post("/webhook/efi", async (req, res) => {
   try {
     const pixNotifications = req.body.pix;
     console.log("Webhook recebido:", pixNotifications);
