@@ -28,6 +28,9 @@ const efi = new EfiPay({
   pemKey: process.env.EFI_CERT_PATH,
 });
 
+
+ 
+
 // ===================== EXPRESS =====================
 const app = express();
 app.use(cors());
@@ -71,7 +74,7 @@ app.post('/api/pix/create', async (req, res) => {
 });
 
 // ===================== WEBHOOK EFI =====================
-app.post("/webhook/efi", async (req, res) => {
+app.post("/webhooks/efi/pix", async (req, res) => {
   try {
     const pixNotifications = req.body.pix;
     console.log("Webhook recebido:", pixNotifications);
@@ -108,13 +111,15 @@ const port = process.env.PORT || 3000;
 app.listen(port, async () => {
   console.log(`API Pix rodando na porta ${port}`);
 
-  // ===================== REGISTRA WEBHOOK EFI =====================
+ // ===================== REGISTRA WEBHOOK EFI =====================
   try {
     const params = { chave: process.env.EFI_PIX_KEY };
-    const body = { webhookUrl: `${process.env.BASE_URL}/webhook/efi` }; // sem /pix
+    const body = { webhookUrl: `${process.env.BASE_URL}/webhooks/efi/pix` }; // sem /pix
     const r = await efi.pixConfigWebhook(params, body);
     console.log("✅ Webhook cadastrado:", r);
   } catch (err) {
     console.error("❌ Erro ao cadastrar webhook:", err.response?.data || err);
   }
+
+  
 });
